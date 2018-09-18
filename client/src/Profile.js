@@ -97,9 +97,6 @@ work(event) {
       work: event.target.value
   });
 }
-
-
-
 handleSubmit(event) {
   this.props.history.push('/')
   event.preventDefault();
@@ -137,9 +134,7 @@ handleSubmit(event) {
           alert(err);
       });
       alert('Customer is successfully added');
-  
 }
-
   render() {
     const { classes } = this.props;
 
@@ -156,7 +151,6 @@ handleSubmit(event) {
             </div>
             <div className="row">
               <div className="container">
-                {/* <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}> */}
                 <ValidatorForm
                 ref="form"
                 onSubmit={this.handleSubmit}
@@ -178,22 +172,7 @@ handleSubmit(event) {
                          margin="normal"
                          validators={['required', 'isfirstName']}
                          errorMessages={['this field is required', 'email is not valid']}
-                      />
-                       {/* <TextValidator
-                       inputProps={{
-                        maxLength: 200,
-                      }}
-                        label="Email"
-                        id="Email"
-                        className={classes.textField}
-                        value={this.state.email}
-                        margin="normal"
-                        required="true"
-                        validators={['required', 'Email']}
-                        data-validation="alphanumeric"
-                        pattern="^[a-zA-Z0-9]+$"
-                        onChange={this.email}
-                      />    */}
+                      /> 
                      <TextValidator
                     label="Email"
                     onChange={this.email}
@@ -205,10 +184,6 @@ handleSubmit(event) {
                     validators={['required', 'isEmail']}
                     errorMessages={['this field is required', 'email is not valid']}
                 />
-
-
-
-
                     </div>
 
                     </div> 
@@ -297,37 +272,15 @@ handleSubmit(event) {
                           margin="normal"
                           onChange={this.city}
                         />
-                        {/* <TextField
-                        inputProps={{
-                          maxLength: 200,
-                        }}
-                          label="Zip_or_PostCode"
-                          id="Zip_or_PostCode"
-                          required="Number"
-                          value={this.state.zip_or_postcode}
-                          className={classes.textField}
-                          margin="normal"
-                          onChange={this.zip_or_postcode}
-                        /> */}
-
-   <TextValidator
+                  <TextValidator
                     label="zip_or_postcode"
                     onChange={this.zip_or_postcode}
                     name="zip_or_postcode"
                     id="zip_or_postcode"
                     margin="normal"
                     value={this.state.zip_or_postcode}
-                   
-                    
                     errorMessages={['this field is required', 'zip_or_postcode is not valid']}
                 />
-
-
-
-
-
-
-
                         <TextField
                         inputProps={{
                           maxLength: 200,
@@ -340,11 +293,9 @@ handleSubmit(event) {
                           margin="normal"
                           onChange={this.country}
                         />
+                        <button style={{color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px'}}>Submit</button>
                       </div>
-  
                       </div>
-                      <button style={{display:'flex',color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px'}}>Submit</button>
-                {/* </form> */}
                 </ValidatorForm>
               </div>
             </div>
