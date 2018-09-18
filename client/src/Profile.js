@@ -30,7 +30,8 @@ class Profile extends React.Component {
         work:'',
         city:'',
         country:'',
-        data:[]
+        data:[],
+        errors: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.firstName = this.firstName.bind(this);
@@ -46,6 +47,46 @@ class Profile extends React.Component {
   
     
 }
+thirdMethod(e) {
+  const re = /[a-zA-Z]+/g;
+  if (!re.test(e.key)) {
+    e.preventDefault();
+  }
+}
+fourthMethod(e) {
+  const re = /[0-9]+/g;
+  if (!re.test(e.key)) {
+    e.preventDefault();
+  }
+}
+fifthMethod(e) {
+  const re = /[0-9a-zA-Z]+/g;
+  if (!re.test(e.key)) {
+    e.preventDefault();
+  }
+}
+
+handleValidation(){
+  let firstName = this.state.firstName;
+  let errors = {};
+  let formIsValid = true;
+
+  
+  if(!firstName){
+    formIsValid = false;
+    errors.firstName= "Cannot be empty";
+  }
+
+  if(typeof firstName !== "undefined"){
+    if(!firstName.match(/^[a-zA-Z]+$/)){
+      formIsValid = false;
+      errors["name"] = "Only letters";
+    }      	
+  }
+  this.setState({errors: errors});
+  return formIsValid;
+}
+
 
 firstName(event) {
   this.setState({
@@ -97,17 +138,12 @@ work(event) {
       work: event.target.value
   });
 }
-thirdMethod(e) {
-  const re = /[0-9a-fA-F]+/g;
-  if (!re.test(e.key)) {
-    e.preventDefault();
-  }
-}
 handleSubmit(event) {
   this.props.history.push('/')
   event.preventDefault();
-  const { firstName, email } = this.state;
-  fetch('http://localhost:3003/api/contact', {
+  if(this.handleValidation()){
+    const { firstName, email } = this.state;
+  fetch('https://shielded-citadel-95440.herokuapp.com/api/contact', {
       method: 'POST',
       body: JSON.stringify({
           firstName,
@@ -139,7 +175,13 @@ handleSubmit(event) {
       }).catch(err => {
           alert(err);
       });
+      this.props.history.push('/')
       alert('Customer is successfully added');
+  }else{
+    alert("Form has errors.")
+  }
+
+  
 }
   render() {
     const { classes } = this.props;
@@ -168,15 +210,19 @@ handleSubmit(event) {
                     inputProps={{
                       maxLength: 200,
                     }}
+                    onKeyPress={(e) => this.thirdMethod(e)}
+                    
+                    
                         label="Name"
                         id="Name"
                         className={classes.textField}
                         value={this.state.firstName}
                          onChange={this.firstName}
                          required="true"
-                         pattern={"[a-zA-Z0-9 ]+"}
+                         pattern="[a-zA-Z0-9 ]+"
                          margin="normal"
-                         onKeyPress={(e) => this.thirdMethod(e)}
+                         validators={['required', 'isfirstName']}
+                         errorMessages={['this field is required', 'firstName is not valid']}
                       /> 
                      <TextValidator
                     label="Email"
@@ -200,13 +246,14 @@ handleSubmit(event) {
                         inputProps={{
                           maxLength: 200,
                         }}
+                        required="true"
                           label="Resedential"
                           id="Resedential"
                           value={this.state.residential}
                           className={classes.textField}
                           margin="normal"
-                          required="Number"
-                          onKeyPress={(e) => this.thirdMethod(e)}
+                          onKeyPress={(e) => this.fifthMethod(e)}
+                          
                           onChange={this.residential}
                         />
                         <TextField
@@ -215,11 +262,11 @@ handleSubmit(event) {
                         }}
                           label="Work"
                           id="Work"
-                          required="Number"
+                          required="true"
+                          onKeyPress={(e) => this.fifthMethod(e)}
                           value={this.state.work}
                           className={classes.textField}
                           margin="normal"
-                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.work}
                         />
                         </div>
@@ -236,10 +283,10 @@ handleSubmit(event) {
                           label="Line1"
                           id="Line1"
                           required="true"
-                          onKeyPress={(e) => this.thirdMethod(e)}
                           value={this.state.line1}
                           className={classes.textField}
                           margin="normal"
+                          onKeyPress={(e) => this.fifthMethod(e)}
                           onChange={this.line1}
                         />
                         <TextField
@@ -252,7 +299,7 @@ handleSubmit(event) {
                           required="true"
                           className={classes.textField}
                           margin="normal"
-                          onKeyPress={(e) => this.thirdMethod(e)}
+                          onKeyPress={(e) => this.fifthMethod(e)}
                           onChange={this.line2}
                         />
                         <TextField
@@ -265,7 +312,7 @@ handleSubmit(event) {
                           value={this.state.line3}
                           className={classes.textField}
                           margin="normal"
-                          onKeyPress={(e) => this.thirdMethod(e)}
+                          onKeyPress={(e) => this.fifthMethod(e)}
                           onChange={this.line3}
                         />
                       </div>
@@ -276,20 +323,24 @@ handleSubmit(event) {
                         }}
                           label="City"
                           id="city"
-                          value={this.state.city}
                           required="true"
+                          value={this.state.city}
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           className={classes.textField}
                           margin="normal"
-                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.city}
                         />
                   <TextValidator
                     label="zip_or_postcode"
+                    inputProps={{
+                      maxLength: 8,
+                    }}
+                    required="true"
                     onChange={this.zip_or_postcode}
                     name="zip_or_postcode"
                     id="zip_or_postcode"
                     margin="normal"
-                    onKeyPress={(e) => this.thirdMethod(e)}
+                    onKeyPress={(e) => this.fourthMethod(e)}
                     value={this.state.zip_or_postcode}
                     errorMessages={['this field is required', 'zip_or_postcode is not valid']}
                 />
@@ -299,14 +350,16 @@ handleSubmit(event) {
                         }}
                           label="Country"
                           id="country"
-                          required="true"
                           onKeyPress={(e) => this.thirdMethod(e)}
                           value={this.state.country}
                           className={classes.textField}
                           margin="normal"
+                          required="true"
+                          
                           onChange={this.country}
                         />
-                        <button style={{color:'red',justifyContent:'center',position:'relative',left:'90px',width:'120px',bottom:'40px',height:'50px'}}>Submit</button>
+                        {/* <button style={{color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px'}}>Submit</button> */}
+                        <button style={{color:'red',justifyContent:'center',left:'90px',width:'240px',bottom:'40px',height:'60px'}}>Submit</button>
                       </div>
                       </div>
                 </ValidatorForm>

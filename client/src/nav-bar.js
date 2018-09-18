@@ -3,7 +3,6 @@ import { Header, Navigation } from 'react-mdl';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
 export default class Navbar extends Component {
     render() {
         return (
