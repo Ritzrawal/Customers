@@ -97,6 +97,12 @@ work(event) {
       work: event.target.value
   });
 }
+thirdMethod(e) {
+  const re = /[0-9a-fA-F]+/g;
+  if (!re.test(e.key)) {
+    e.preventDefault();
+  }
+}
 handleSubmit(event) {
   this.props.history.push('/')
   event.preventDefault();
@@ -168,10 +174,9 @@ handleSubmit(event) {
                         value={this.state.firstName}
                          onChange={this.firstName}
                          required="true"
-                         pattern="[a-zA-Z0-9 ]+"
+                         pattern={"[a-zA-Z0-9 ]+"}
                          margin="normal"
-                         validators={['required', 'isfirstName']}
-                         errorMessages={['this field is required', 'email is not valid']}
+                         onKeyPress={(e) => this.thirdMethod(e)}
                       /> 
                      <TextValidator
                     label="Email"
@@ -201,6 +206,7 @@ handleSubmit(event) {
                           className={classes.textField}
                           margin="normal"
                           required="Number"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.residential}
                         />
                         <TextField
@@ -213,6 +219,7 @@ handleSubmit(event) {
                           value={this.state.work}
                           className={classes.textField}
                           margin="normal"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.work}
                         />
                         </div>
@@ -229,6 +236,7 @@ handleSubmit(event) {
                           label="Line1"
                           id="Line1"
                           required="true"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           value={this.state.line1}
                           className={classes.textField}
                           margin="normal"
@@ -244,6 +252,7 @@ handleSubmit(event) {
                           required="true"
                           className={classes.textField}
                           margin="normal"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.line2}
                         />
                         <TextField
@@ -256,6 +265,7 @@ handleSubmit(event) {
                           value={this.state.line3}
                           className={classes.textField}
                           margin="normal"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.line3}
                         />
                       </div>
@@ -270,6 +280,7 @@ handleSubmit(event) {
                           required="true"
                           className={classes.textField}
                           margin="normal"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           onChange={this.city}
                         />
                   <TextValidator
@@ -278,6 +289,7 @@ handleSubmit(event) {
                     name="zip_or_postcode"
                     id="zip_or_postcode"
                     margin="normal"
+                    onKeyPress={(e) => this.thirdMethod(e)}
                     value={this.state.zip_or_postcode}
                     errorMessages={['this field is required', 'zip_or_postcode is not valid']}
                 />
@@ -288,12 +300,13 @@ handleSubmit(event) {
                           label="Country"
                           id="country"
                           required="true"
+                          onKeyPress={(e) => this.thirdMethod(e)}
                           value={this.state.country}
                           className={classes.textField}
                           margin="normal"
                           onChange={this.country}
                         />
-                        <button style={{color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px'}}>Submit</button>
+                        <button style={{color:'red',justifyContent:'center',position:'relative',left:'90px',width:'120px',bottom:'40px',height:'50px'}}>Submit</button>
                       </div>
                       </div>
                 </ValidatorForm>

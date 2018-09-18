@@ -269,7 +269,7 @@ handleSubmit(event) {
                         />
                       </div>
                       </div>
-                      <button style={{display:'flext',color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px'}}>Update</button>
+                      <button style={{display:'flext',color:'red',justifyContent:'center',position:'relative',left:'70px',width:'120px',height:'50px',top:'50px'}}>Update</button>
                 </form>
               </div>
             </div>    
