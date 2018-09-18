@@ -1,0 +1,52 @@
+.CreateComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 150px;
+    margin-left: 10px;
+}
+
+.output {
+    border-style: groove;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 850px;
+    flex-wrap: wrap;
+}
+
+.language {
+    display: flex;
+    flex-wrap: wrap;
+    width: 150px;
+    align-self: flex-end;
+}
+
+.submit {
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 150px; */
+    align-self: flex-end;
+}
+
+.text-area {
+    height: 200px;
+    min-width: 842px;
+    margin: 0px;
+    width: 842px;
+    height: 156px;
+    max-width: 842px;
+}
+
+
+/* .stdin {
+    width: 50px;
+} */
